@@ -1,0 +1,80 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %} SHOP {% endblock %}
+
+{% block css %}
+.col-md-3
+{
+display: inline-block;
+margin-left:-4px;
+}
+.carousel-indicators .active {
+background-color: blue;
+}
+.carousel-indicators li {
+background-color: black;
+}
+.col-md-3 img{
+width:255px;
+height:255px;
+}
+body .carousel-indicator li{
+background-color: blue;
+}
+body .carousel-indicators{
+top: 470px;
+}
+body .carousel-control-prev-icon,
+body .carousel-control-next-icon{
+background-color: blue;
+}
+body .no-padding{
+padding-left: 0,
+padding-right: 0;
+}
+{% endblock %}
+
+{% block body %}
+{% load static %}
+<div class="container">
+    <div id="demo" class="carousel slide my-3" data-ride="carousel">
+
+        <!-- Indicators -->
+        <ul class="carousel-indicators">
+            {% for slide in slide_range %}
+            <li data-target="#demo" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+            {% endfor %}
+        </ul>
+
+        <!-- Slideshow -->
+        <div class="container carousel-inner no-padding">
+            {% for product_group in allProds %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                {% for prod in product_group %}
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/media/{{ prod.image }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ prod.product_name }}</h5>
+                            <p class="card-text">{{ prod.desc }}</p>
+                            <a href="#" class="btn btn-primary">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+        </div>
+    </div>
+
+    <!-- left and right controls for the slide -->
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </a>
+
+    {% endblock %}
+</div>
